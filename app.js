@@ -189,7 +189,7 @@ Promise.all([
     if (!res.ok) throw new Error('Failed to load projects.json');
     return res.json();
   }),
-  fetch('/api/votes')
+  fetch('/api/votes', { cache: 'no-store' }) 
     .then(res => res.ok ? res.json() : {})
     .catch(() => ({}))
 ])

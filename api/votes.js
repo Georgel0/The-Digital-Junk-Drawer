@@ -3,6 +3,8 @@ import redis from '../lib/redis.js';
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
+      res.setHeader('Cache-Control', 'no-store, max-age=0');
+      
       const votes = await redis.hgetall('project_votes');
       return res.status(200).json(votes || {});
     } catch (error) {
