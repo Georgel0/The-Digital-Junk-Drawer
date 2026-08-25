@@ -7,7 +7,7 @@ This project started as a personal collection of apps built out of boredom, but 
 > "One person's digital trash is another person's digital treasure."
 
 ## Live Demo
-Check out the collection here: [https://georgel0.github.io/The-Digital-Junk-Drawer-/]
+Check out the collection here: [the-digital-junk-drawer.vercel.app]
 
 ---
 
