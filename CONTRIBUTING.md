@@ -15,7 +15,8 @@ You only need two things:
 1.  **Fork** this repository to your own GitHub account.
 2.  **Upload** your HTML file into the `HTMLs/` folder.
 3.  **Upload** your image into the `Images/` folder.
-4.  **Edit `projects.json`**: Instead of editing the index file, simply append your app's details as a new JSON object inside the array. Make sure to categorize it accurately:
+4.  **Edit `projects.json`**: Instead of editing the index file, simply append your app's details as a new JSON object inside the array. 
+    *(⚠️ Pro-tip: Make sure to add a comma `,` after the previous project object so the JSON doesn't break!)*
     ```json
     {
       "id": "your-unique-app-name",

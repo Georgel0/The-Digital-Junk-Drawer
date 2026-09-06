@@ -60,6 +60,7 @@ body {
   color: var(--ink);
   transition: background-color 0.35s ease, color 0.35s ease;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* ---------- theme toggle: a light-switch pull in the corner ---------- */
