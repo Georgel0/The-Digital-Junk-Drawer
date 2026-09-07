@@ -35,4 +35,6 @@ You only need two things:
 * Ensure the UI looks decent on mobile.
 * Keep file names simple (e.g., `myCoolGame.html`).
 
+NOTE: If your idea is already in the drawer, add it anyway, we will do some sort of leaderboard for that idea in the future. 
+
 I will review your PR as soon as possible.
