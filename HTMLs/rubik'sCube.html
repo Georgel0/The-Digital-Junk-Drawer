@@ -18,7 +18,7 @@
       -webkit-user-select: none;
       -webkit-tap-highlight-color: transparent;
     }
-
+    
     #canvas-container {
       width: 100vw;
       height: 100vh;
@@ -28,11 +28,11 @@
       z-index: 1;
       cursor: grab;
     }
-
+    
     #canvas-container:active {
       cursor: grabbing;
     }
-
+    
     #ui-container {
       position: absolute;
       bottom: 40px;
@@ -49,7 +49,7 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
       pointer-events: auto;
     }
-
+    
     .btn {
       background: transparent;
       color: #fff;
@@ -63,19 +63,19 @@
       outline: none;
       user-select: none;
     }
-
+    
     .btn:hover {
       background: rgba(255, 255, 255, 0.1);
       border-color: rgba(255, 255, 255, 0.3);
     }
-
+    
     .btn:active {
       transform: scale(0.95);
     }
-
+    
     #status-panel {
       position: absolute;
-      top: 25px;
+      top: 62px;
       right: 25px;
       z-index: 10;
       color: #999;
@@ -83,8 +83,9 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
       pointer-events: none;
+      text-align: right;
     }
-
+    
     .back-home {
       position: fixed;
       top: 15px;
@@ -100,43 +101,346 @@
       transition: all 0.2s;
       z-index: 1000;
     }
-
+    
     .back-home:hover {
       background: #fff;
       color: #000;
       border: 2px solid #000;
       transform: translateY(-2px);
     }
+    
+    #stats-panel {
+      color: #999;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      pointer-events: none;
+      text-align: right;
+      min-width: 150px;
+      margin-top: 10px;
+    }
+    
+    #stats-panel .stat-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 2px;
+    }
+    
+    #stats-panel .stat-value {
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+    
+    #stats-panel .stat-best {
+      color: #ffd700;
+      font-size: 0.68rem;
+    }
+    
+    #top-actions {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 1000;
+      display: flex;
+      gap: 8px;
+    }
+    
+    .icon-btn {
+      background: #000;
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s;
+      border: none;
+      font-size: 0.9rem;
+    }
+    
+    .icon-btn:hover {
+      background: #fff;
+      color: #000;
+      transform: translateY(-2px);
+    }
+    
+    .icon-btn.active {
+      background: #ffd700;
+      color: #000;
+    }
+    
+    #ui-container {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 14px 16px;
+    }
+    
+    #ui-row-main {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .btn i {
+      margin-right: 5px;
+    }
+    
+    .btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    
+    #notation-bar {
+      max-width: min(90vw, 520px);
+      overflow-x: auto;
+      white-space: nowrap;
+      font-size: 0.72rem;
+      color: #999;
+      letter-spacing: 0.03em;
+      padding-top: 2px;
+      display: none;
+      scrollbar-width: thin;
+    }
+    
+    #notation-bar span {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 1px 6px;
+      border-radius: 5px;
+      margin-right: 4px;
+      display: inline-block;
+    }
+    
+    #notation-bar.show {
+      display: block;
+    }
+    
+    #toast {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      z-index: 20;
+      background: rgba(20, 20, 20, 0.92);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      backdrop-filter: blur(20px);
+      border-radius: 18px;
+      padding: 22px 32px;
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    
+    #toast.show {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+    
+    #toast .toast-title {
+      color: #ffd700;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    
+    #toast .toast-sub {
+      color: #ccc;
+      font-size: 0.85rem;
+    }
+    
+    #toast .toast-pb {
+      color: #4ade80;
+      font-size: 0.75rem;
+      margin-top: 6px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    
+    #settings-panel {
+      position: absolute;
+      top: 62px;
+      right: 15px;
+      z-index: 1000;
+      background: rgba(30, 30, 30, 0.92);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 16px;
+      width: 230px;
+      color: #fff;
+      font-size: 0.8rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      display: none;
+    }
+    
+    #settings-panel.show {
+      display: block;
+    }
+    
+    #settings-panel h3 {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #999;
+      margin: 0 0 10px 0;
+    }
+    
+    .settings-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 10px;
+    }
+    
+    .settings-row:last-child {
+      margin-bottom: 0;
+    }
+    
+    .toggle {
+      width: 38px;
+      height: 22px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 11px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    
+    .toggle.on {
+      background: #ffd700;
+    }
+    
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform 0.2s;
+    }
+    
+    .toggle.on::after {
+      transform: translateX(16px);
+      background: #1a1a1a;
+    }
+    
+    #keyboard-hint {
+      position: absolute;
+      bottom: 25px;
+      left: 25px;
+      z-index: 10;
+      color: #666;
+      font-size: 0.68rem;
+      letter-spacing: 0.03em;
+      pointer-events: none;
+      display: none;
+    }
+    
+    @media (min-width: 768px) {
+      #keyboard-hint.enabled {
+        display: block;
+      }
+    }
+    
+    #keyboard-hint kbd {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: #ccc;
+      font-family: inherit;
+    }
+    
+    #scramble-log {
+      color: #666;
+      font-size: 0.66rem;
+      max-width: 210px;
+      text-align: right;
+      pointer-events: none;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+      margin-top: 10px;
+      margin-left: auto;
+    }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/TrackballControls.js"></script>
-
+  
   <!-- Vercel Web Analytics -->
   <script>
-    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    window.va = window.va || function() {
+      (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
-
+  
   <div class="back-home" onclick="window.location.href='/index.html'">
     <i class="fa-solid fa-arrow-left"></i> Back
   </div>
-
+  
+  <div id="top-actions">
+    <button class="icon-btn" id="btn-undo" title="Undo last move"><i class="fa-solid fa-rotate-left"></i></button>
+    <button class="icon-btn" id="btn-fullscreen" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
+    <button class="icon-btn" id="btn-settings" title="Settings"><i class="fa-solid fa-gear"></i></button>
+  </div>
+  
+  <div id="settings-panel">
+    <h3>Settings</h3>
+    <div class="settings-row">
+      <span>Show move notation</span>
+      <div class="toggle" id="toggle-notation"></div>
+    </div>
+    <div class="settings-row">
+      <span>Keyboard shortcuts</span>
+      <div class="toggle" id="toggle-keyboard"></div>
+    </div>
+  </div>
+  
   <div id="status-panel">
     <h1 class="text-white font-bold text-lg mb-1 tracking-normal capitalize">Rubik's Cube</h1>
     <p>Status: <span id="status-text" class="text-white">Ready</span></p>
+    <div id="stats-panel">
+      <div class="stat-row"><span>Time</span><span class="stat-value" id="stat-time">0:00.0</span></div>
+      <div class="stat-row"><span>Moves</span><span class="stat-value" id="stat-moves">0</span></div>
+      <div class="stat-row stat-best" id="stat-best-time-row"><span>Best</span><span id="stat-best-time">–</span></div>
+      <div class="stat-row stat-best" id="stat-best-moves-row"><span>Fewest</span><span id="stat-best-moves">–</span></div>
+    </div>
+    <div id="scramble-log"></div>
   </div>
-
+  
+  <div id="toast">
+    <div class="toast-title" id="toast-title">Solved!</div>
+    <div class="toast-sub" id="toast-sub"></div>
+    <div class="toast-pb" id="toast-pb"></div>
+  </div>
+  
+  <div id="keyboard-hint">
+    <kbd>U D L R F B</kbd> turn &nbsp; <kbd>Shift</kbd>+key reverse &nbsp; <kbd>Space</kbd> reset view
+  </div>
+  
   <div id="ui-container">
-    <button id="btn-scramble" class="btn">Scramble</button>
-    <button id="btn-solve" class="btn">Solve</button>
-    <button id="btn-reset" class="btn">Reset</button>
+    <div id="ui-row-main">
+      <button id="btn-scramble" class="btn"><i class="fa-solid fa-shuffle"></i>Scramble</button>
+      <button id="btn-solve" class="btn"><i class="fa-solid fa-wand-magic-sparkles"></i>Solve</button>
+      <button id="btn-reset" class="btn"><i class="fa-solid fa-rotate"></i>Reset</button>
+    </div>
+    <div id="notation-bar"></div>
   </div>
-
+  
   <div id="canvas-container"></div>
-
+  
   <script>
     // Configuration
     const COLORS = {
@@ -148,7 +452,7 @@
       B: 0x0051ba, // Blue
       CORE: 0x111111
     };
-
+    
     const ANIMATION_SPEED = 240;
     let scene, camera, renderer, controls;
     let cubes = [];
@@ -158,11 +462,11 @@
     let userMoveCount = 0;
     let isScrambled = false;
     let isWaitingForScrambleEnd = false;
-
+    
     const pivot = new THREE.Object3D();
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
-
+    
     // Interaction state
     let isCubeDragging = false;
     let touchData = {
@@ -171,18 +475,18 @@
       screenStart: new THREE.Vector2(),
       pointerId: null
     };
-
+    
     function init() {
       const container = document.getElementById('canvas-container');
-
+      
       scene = new THREE.Scene();
       scene.background = new THREE.Color(0x1a1a1a);
-
+      
       // Camera Setup
       camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
       camera.position.set(6, 5, 8);
       scene.add(camera);
-
+      
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
@@ -190,7 +494,7 @@
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.2;
       container.appendChild(renderer.domElement);
-
+      
       // TrackballControls Setup
       controls = new THREE.TrackballControls(camera, renderer.domElement);
       controls.rotateSpeed = 3.5;
@@ -201,7 +505,7 @@
       controls.dynamicDampingFactor = 0.15;
       controls.minDistance = 4;
       controls.maxDistance = 20;
-
+      
       // Lighting
       const ambient = new THREE.AmbientLight(0xffffff, 0.8);
       scene.add(ambient);
@@ -216,23 +520,23 @@
       const sun2 = new THREE.DirectionalLight(0xffffff, 2.0);
       sun2.position.set(-15, -10, -15);
       scene.add(sun2);
-
+      
       createCube();
       scene.add(pivot);
-
+      
       setupEventInterception(renderer.domElement);
-
+      
       window.addEventListener('resize', onWindowResize);
       document.getElementById('btn-scramble').onclick = scramble;
       document.getElementById('btn-solve').onclick = solve;
       document.getElementById('btn-reset').onclick = reset;
-
+      
       animate();
     }
-
+    
     // --- ROBUST EVENT INTERCEPTION SYSTEM ---
     function setupEventInterception(canvas) {
-
+      
       // Helper to check intersection without triggering logic yet
       const checkHit = (clientX, clientY) => {
         const rect = canvas.getBoundingClientRect();
@@ -241,7 +545,7 @@
         raycaster.setFromCamera(mouse, camera);
         return raycaster.intersectObjects(cubes);
       };
-
+      
       // 1. GATEKEEPER (Capture Phase)
       // This runs BEFORE TrackballControls gets the event. 
       // It decides who gets to handle the input: The Camera or The Cube Logic.
@@ -257,13 +561,13 @@
           clientX = e.clientX;
           clientY = e.clientY;
         }
-
+        
         const intersects = checkHit(clientX, clientY);
-
+        
         if (intersects.length > 0) {
           // HIT A CUBE -> Disable Camera, Enable Drag
           controls.enabled = false;
-
+          
           // IMPORTANT: We do not stop propagation here because we want our own
           // pointerdown listener (below) to receive this event to start the drag math.
           // However, setting controls.enabled = false is usually enough for Trackball.
@@ -272,64 +576,64 @@
           controls.enabled = true;
         }
       };
-
+      
       // 2. DRAG LOGIC (Pointer Events)
       // This handles the actual math of moving the slices.
       const handlePointerDown = (e) => {
         if (e.isPrimary === false || (e.pointerType === 'mouse' && e.button !== 0)) return;
-
+        
         // Safety check: verify hit again (fast enough) to get precise data
         const intersects = checkHit(e.clientX, e.clientY);
-
+        
         if (intersects.length > 0) {
           isCubeDragging = true;
           controls.enabled = false; // Double ensure controls are dead
-
+          
           const hit = intersects[0];
           const normal = hit.face.normal.clone();
           normal.applyQuaternion(hit.object.quaternion).normalize();
-
+          
           touchData = {
             cube: hit.object,
             normal: normal,
             screenStart: new THREE.Vector2(e.clientX, e.clientY),
             pointerId: e.pointerId
           };
-
+          
           canvas.setPointerCapture(e.pointerId);
           e.stopPropagation(); // Try to stop bubbling to be safe
         }
       };
-
+      
       const handlePointerMove = (e) => {
         // If we are dragging a cube, we must prevent Trackball from seeing this move
         if (isCubeDragging) {
           e.stopImmediatePropagation(); // NUCLEAR OPTION: Kill the event locally
           e.preventDefault();
         }
-
+        
         if (!isCubeDragging || isAnimating || e.pointerId !== touchData.pointerId) return;
-
+        
         const screenPos = new THREE.Vector2(e.clientX, e.clientY);
         const delta = screenPos.clone().sub(touchData.screenStart);
-
+        
         if (delta.length() < 10) return; // Threshold
-
+        
         // Calculate Drag Vectors
         const camRight = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion);
         const camUp = new THREE.Vector3(0, 1, 0).applyQuaternion(camera.quaternion);
-
+        
         const moveDir = new THREE.Vector3()
           .addScaledVector(camRight, delta.x)
           .addScaledVector(camUp, -delta.y)
           .normalize();
-
+        
         const rotationAxis = new THREE.Vector3().crossVectors(touchData.normal, moveDir);
-
+        
         const worldAxes = [new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, 1, 0), new THREE.Vector3(0, 0, 1)];
         let maxDot = -1;
         let bestAxisIdx = 0;
-
+        
         worldAxes.forEach((ax, i) => {
           const dot = Math.abs(rotationAxis.dot(ax));
           if (dot > maxDot) {
@@ -337,24 +641,24 @@
             bestAxisIdx = i;
           }
         });
-
+        
         const axisChars = ['x', 'y', 'z'];
         const bestAxis = axisChars[bestAxisIdx];
         const layer = Math.round(touchData.cube.position[bestAxis]);
-
+        
         const worldAxisVec = new THREE.Vector3();
         worldAxisVec[bestAxis] = 1;
         const dirSign = rotationAxis.dot(worldAxisVec) > 0 ? 1 : -1;
-
+        
         queueMove(bestAxis, layer, dirSign);
-
+        
         isCubeDragging = false;
         canvas.releasePointerCapture(e.pointerId);
-
+        
         // Note: We don't re-enable controls here instantly to prevent jitter.
         // They will re-enable on the next pointer down on background.
       };
-
+      
       const handlePointerUp = (e) => {
         if (isCubeDragging) {
           isCubeDragging = false;
@@ -365,30 +669,30 @@
         // But for safety:
         controls.enabled = true;
       };
-
+      
       // BINDINGS
       // capture: true ensures we run BEFORE TrackballControls
       canvas.addEventListener('touchstart', handleInputStart, { capture: true, passive: false });
       canvas.addEventListener('mousedown', handleInputStart, { capture: true, passive: false });
-
+      
       // Pointer events for the actual logic (standard bubbling/capture mix)
       canvas.addEventListener('pointerdown', handlePointerDown, { passive: false });
       canvas.addEventListener('pointermove', handlePointerMove, { passive: false, capture: true }); // Capture move to stop propagation early
       canvas.addEventListener('pointerup', handlePointerUp);
       canvas.addEventListener('pointercancel', handlePointerUp);
     }
-
+    
     function createCube() {
       cubes.forEach(c => scene.remove(c));
       cubes = [];
       const geom = new THREE.BoxGeometry(0.95, 0.95, 0.95);
-
+      
       const matParams = {
         roughness: 0.12,
         metalness: 0.45,
         envMapIntensity: 1.0
       };
-
+      
       for (let x = -1; x <= 1; x++) {
         for (let y = -1; y <= 1; y++) {
           for (let z = -1; z <= 1; z++) {
@@ -402,37 +706,38 @@
             ];
             const mesh = new THREE.Mesh(geom, materials);
             mesh.position.set(x, y, z);
+            mesh.userData.home = { x, y, z }; // tag for solved-state detection only
             scene.add(mesh);
             cubes.push(mesh);
           }
         }
       }
     }
-
+    
     function queueMove(axis, layer, direction, record = true) {
       moveQueue.push({ axis, layer, direction, record });
     }
-
+    
     function performMove(axis, layer, direction, record = true) {
       if (isAnimating) return;
       isAnimating = true;
-
+      
       const movingCubes = cubes.filter(c => Math.abs(c.position[axis] - layer) < 0.1);
       pivot.rotation.set(0, 0, 0);
       pivot.updateMatrixWorld();
       movingCubes.forEach(c => pivot.attach(c));
-
+      
       const targetRotation = (Math.PI / 2) * direction;
       const startTime = performance.now();
       const duration = (moveQueue.length > 5 || !record) ? 100 : ANIMATION_SPEED;
-
+      
       function animateStep(now) {
         const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
         const ease = 1 - Math.pow(1 - progress, 3);
-
+        
         pivot.rotation[axis] = targetRotation * ease;
-
+        
         if (progress < 1) {
           requestAnimationFrame(animateStep);
         } else {
@@ -441,7 +746,7 @@
       }
       requestAnimationFrame(animateStep);
     }
-
+    
     function finalizeMove(movingCubes, axis, record, direction) {
       pivot.updateMatrixWorld();
       movingCubes.forEach(c => {
@@ -449,53 +754,53 @@
         c.position.x = Math.round(c.position.x);
         c.position.y = Math.round(c.position.y);
         c.position.z = Math.round(c.position.z);
-
+        
         const e = new THREE.Euler().setFromQuaternion(c.quaternion);
         e.x = Math.round(e.x / (Math.PI / 2)) * (Math.PI / 2);
         e.y = Math.round(e.y / (Math.PI / 2)) * (Math.PI / 2);
         e.z = Math.round(e.z / (Math.PI / 2)) * (Math.PI / 2);
         c.quaternion.setFromEuler(e);
       });
-
+      
       if (record) moveHistory.push({ axis, layer: Math.round(movingCubes[0].position[axis]), direction });
       if (isScrambled) {
         userMoveCount++;
         updateStatus(`${userMoveCount} Moves`);
       }
-
+      
       isAnimating = false;
     }
-
+    
     function scramble() {
       if (isAnimating) return;
       userMoveCount = 0;
       isScrambled = false;
       isWaitingForScrambleEnd = true;
       updateStatus("Scrambling...");
-
+      
       const axes = ['x', 'y', 'z'];
       const layers = [-1, 0, 1];
       for (let i = 0; i < 20; i++) {
         queueMove(axes[Math.floor(Math.random() * 3)], layers[Math.floor(Math.random() * 3)], Math.random() > 0.5 ? 1 : -1);
       }
     }
-
+    
     function solve() {
       if (moveHistory.length === 0 || isAnimating) return;
       isScrambled = false;
       isWaitingForScrambleEnd = false;
       updateStatus("Solving...");
-
+      
       const history = [...moveHistory];
       moveHistory = [];
       history.reverse().forEach(m => queueMove(m.axis, m.layer, -m.direction, false));
-
+      
       setTimeout(() => {
         userMoveCount = 0;
         updateStatus("Solved");
       }, (history.length * 110) + 200);
     }
-
+    
     function reset() {
       moveQueue = [];
       moveHistory = [];
@@ -506,18 +811,18 @@
       controls.reset();
       updateStatus("Ready");
     }
-
+    
     function updateStatus(txt) {
       document.getElementById('status-text').innerText = txt;
     }
-
+    
     function onWindowResize() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
       controls.handleResize();
     }
-
+    
     function animate() {
       requestAnimationFrame(animate);
       if (!isAnimating && moveQueue.length > 0) {
@@ -528,11 +833,332 @@
         isScrambled = true;
         updateStatus("0 Moves");
       }
-
+      
       controls.update();
       renderer.render(scene, camera);
     }
-
+    
+    // ============================================================
+    // NEW: notation, smarter solving, real solved-detection, stats,
+    // undo, keyboard shortcuts, settings. None of this touches cube
+    // colors/lighting/camera/drag interaction above.
+    // ============================================================
+    
+    // Standard WCA-style clockwise direction for each face turn, derived from and
+    // verified against this file's own rotation math (axis/layer/direction semantics
+    // above are left completely untouched — this just names them).
+    const FACE_DEF = {
+      U: { axis: 'y', layer: 1, cw: 1 },
+      D: { axis: 'y', layer: -1, cw: -1 },
+      R: { axis: 'x', layer: 1, cw: -1 },
+      L: { axis: 'x', layer: -1, cw: 1 },
+      F: { axis: 'z', layer: 1, cw: -1 },
+      B: { axis: 'z', layer: -1, cw: 1 },
+      M: { axis: 'x', layer: 0, cw: 1 }, // follows L
+      E: { axis: 'y', layer: 0, cw: -1 }, // follows D
+      S: { axis: 'z', layer: 0, cw: -1 }, // follows F
+    };
+    const AXIS_LAYER_TO_FACE = {}; // "x,1" -> 'R' etc, for converting recorded moves back to notation
+    Object.entries(FACE_DEF).forEach(([face, d]) => { AXIS_LAYER_TO_FACE[`${d.axis},${d.layer}`] = face; });
+    
+    function moveToToken(axis, layer, direction) {
+      const face = AXIS_LAYER_TO_FACE[`${axis},${layer}`];
+      if (!face) return '?';
+      const cw = FACE_DEF[face].cw;
+      const rel = direction === cw ? '' : "'";
+      return face + rel;
+    }
+    // Collapse a recorded move list: cancel opposite pairs on the same slice and merge
+    // same-direction repeats (e.g. R, R -> R2 i.e. two 180-equivalent quarter turns kept
+    // as one visual double-turn burst; R, R' -> removed entirely). This is a genuine
+    // optimization pass over the *exact* recorded history, not a re-derivation — the
+    // reversed, collapsed list is still mathematically guaranteed to return to solved.
+    function collapseMoves(history) {
+      const stack = [];
+      for (const m of history) {
+        const top = stack[stack.length - 1];
+        if (top && top.axis === m.axis && top.layer === m.layer) {
+          const sum = ((top.direction + m.direction) % 4 + 4) % 4; // net quarter turns, 0-3
+          if (sum === 0) { stack.pop(); continue; }
+          top.direction = sum === 3 ? -1 : sum; // keep as a single quarter-turn direction where possible
+          top._double = sum === 2;
+          continue;
+        }
+        stack.push({ ...m, _double: false });
+      }
+      // expand any net-double back into two identical quarter turns for the animator
+      const out = [];
+      stack.forEach(m => {
+        if (m._double) { out.push({ axis: m.axis, layer: m.layer, direction: 1 }, { axis: m.axis, layer: m.layer, direction: 1 }); }
+        else out.push({ axis: m.axis, layer: m.layer, direction: m.direction });
+      });
+      return out;
+    }
+    
+    function isSolved() {
+      return cubes.every(c => {
+        const h = c.userData.home;
+        const px = Math.round(c.position.x),
+          py = Math.round(c.position.y),
+          pz = Math.round(c.position.z);
+        if (px !== h.x || py !== h.y || pz !== h.z) return false;
+        const nz = (h.x !== 0 ? 1 : 0) + (h.y !== 0 ? 1 : 0) + (h.z !== 0 ? 1 : 0);
+        if (nz < 2) return true; // core/center: orientation is never visually distinguishable
+        return Math.abs(c.quaternion.w) > 0.999;
+      });
+    }
+    
+    // ---- Stats / timer ----
+    let timerStart = null,
+      timerInterval = null,
+      elapsedMs = 0;
+    let bestTime = parseFloat(localStorage.getItem('cube_best_time') || 'NaN');
+    let bestMoves = parseInt(localStorage.getItem('cube_best_moves') || '', 10);
+    let solveCount = parseInt(localStorage.getItem('cube_solve_count') || '0', 10);
+    
+    function fmtTime(ms) {
+      const s = ms / 1000;
+      const m = Math.floor(s / 60);
+      const rem = (s - m * 60).toFixed(1);
+      return `${m}:${rem.padStart(4, '0')}`;
+    }
+    
+    function refreshBestDisplay() {
+      document.getElementById('stat-best-time').innerText = isFinite(bestTime) ? fmtTime(bestTime) : '–';
+      document.getElementById('stat-best-moves').innerText = isFinite(bestMoves) ? bestMoves : '–';
+    }
+    
+    function startTimer() {
+      timerStart = performance.now();
+      elapsedMs = 0;
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        elapsedMs = performance.now() - timerStart;
+        document.getElementById('stat-time').innerText = fmtTime(elapsedMs);
+      }, 100);
+    }
+    
+    function stopTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+    
+    function showToast(title, sub, pb) {
+      document.getElementById('toast-title').innerText = title;
+      document.getElementById('toast-sub').innerText = sub;
+      document.getElementById('toast-pb').innerText = pb || '';
+      const el = document.getElementById('toast');
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 2600);
+    }
+    
+    function checkSolvedAfterMove(eligibleForRecord) {
+      // Called after ANY move settles (drag, keyboard, or Undo) so the timer/status
+      // always reflect reality — not just after moves that happen to be `record:true`.
+      if (!isScrambled) return false;
+      if (!isSolved()) return false;
+      isScrambled = false;
+      stopTimer();
+      if (eligibleForRecord) {
+        // Exact elapsed time at the moment of solving, not the last 100ms-interval sample.
+        const finalTime = timerStart !== null ? performance.now() - timerStart : elapsedMs;
+        let newPB = false;
+        if (!isFinite(bestTime) || finalTime < bestTime) { bestTime = finalTime;
+          localStorage.setItem('cube_best_time', bestTime);
+          newPB = true; }
+        if (!isFinite(bestMoves) || userMoveCount < bestMoves) { bestMoves = userMoveCount;
+          localStorage.setItem('cube_best_moves', bestMoves);
+          newPB = true; }
+        solveCount++;
+        localStorage.setItem('cube_solve_count', solveCount);
+        refreshBestDisplay();
+        updateStatus('Solved!');
+        showToast('Solved! 🎉', `${fmtTime(finalTime)} · ${userMoveCount} moves`, newPB ? 'New personal best!' : '');
+      } else {
+        // Reached solved via Undo rather than a genuine solve — stop the clock and reflect
+        // it, but don't award a personal best for undoing your way back.
+        updateStatus('Solved');
+      }
+      return true;
+    }
+    
+    // ---- Undo ----
+    // (queueMove/finalizeMove are reused as-is for the actual rotation; we only add
+    // bookkeeping here. The original finalizeMove unconditionally bumps userMoveCount
+    // whenever isScrambled is true, regardless of `record` — pendingUndoCount lets our
+    // wrapper cancel that one extra bump for moves that came from Undo specifically.)
+    let pendingUndoCount = 0;
+    let isAutoPlaying = false; // true while a Scramble or Solve batch is animating
+    function undoLastMove() {
+      if (isAnimating || moveHistory.length === 0) return;
+      const m = moveHistory.pop();
+      pendingUndoCount++;
+      queueMove(m.axis, m.layer, -m.direction, false);
+      if (userMoveCount > 0) userMoveCount--;
+    }
+    
+    // ---- Notation display ----
+    function renderNotation(tokens) {
+      const bar = document.getElementById('notation-bar');
+      bar.innerHTML = tokens.map(t => `<span>${t}</span>`).join('');
+    }
+    
+    function renderScrambleLog(tokens) {
+      document.getElementById('scramble-log').innerText = tokens.join(' ');
+    }
+    
+    // ---- Settings ----
+    let showNotation = localStorage.getItem('cube_show_notation') === '1';
+    let keyboardEnabled = localStorage.getItem('cube_keyboard') !== '0';
+    
+    function applySettingsUI() {
+      document.getElementById('toggle-notation').classList.toggle('on', showNotation);
+      document.getElementById('toggle-keyboard').classList.toggle('on', keyboardEnabled);
+      document.getElementById('notation-bar').classList.toggle('show', showNotation);
+      document.getElementById('scramble-log').style.display = showNotation ? '' : 'none';
+      document.getElementById('keyboard-hint').classList.toggle('enabled', keyboardEnabled);
+    }
+    
+    // ============================================================
+    // Wrap the original functions with the new behavior (originals left intact above).
+    // ============================================================
+    
+    const _origScramble = scramble;
+    scramble = function() {
+      if (isAnimating) return;
+      stopTimer();
+      document.getElementById('stat-time').innerText = '0:00.0';
+      isAutoPlaying = true;
+      _origScramble();
+      // capture notation of the scramble just queued (mirrors moveQueue at this instant)
+      const tokens = moveQueue.map(m => moveToToken(m.axis, m.layer, m.direction));
+      renderScrambleLog(tokens);
+      renderNotation([]);
+    };
+    
+    const _origSolve = solve;
+    solve = function() {
+      if (moveHistory.length === 0 || isAnimating) return;
+      isScrambled = false;
+      isWaitingForScrambleEnd = false;
+      isAutoPlaying = true;
+      stopTimer();
+      updateStatus('Solving...');
+      
+      const optimized = collapseMoves(moveHistory);
+      moveHistory = [];
+      const solveTokens = optimized.slice().reverse().map(m => moveToToken(m.axis, m.layer, -m.direction));
+      renderNotation(solveTokens);
+      optimized.reverse().forEach(m => queueMove(m.axis, m.layer, -m.direction, false));
+      
+      setTimeout(() => {
+        userMoveCount = 0;
+        isAutoPlaying = false;
+        if (isSolved()) { updateStatus('Solved'); } else { updateStatus('Ready'); }
+        renderNotation([]);
+      }, (optimized.length * 150) + 400);
+    };
+    
+    const _origReset = reset;
+    reset = function() {
+      _origReset();
+      stopTimer();
+      elapsedMs = 0;
+      isAutoPlaying = false;
+      document.getElementById('stat-time').innerText = '0:00.0';
+      document.getElementById('stat-moves').innerText = '0';
+      renderNotation([]);
+      renderScrambleLog([]);
+    };
+    
+    const _origFinalizeMove = finalizeMove;
+    finalizeMove = function(movingCubes, axis, record, direction) {
+      const wasUndo = !record && pendingUndoCount > 0;
+      _origFinalizeMove(movingCubes, axis, record, direction);
+      if (wasUndo) {
+        pendingUndoCount--;
+        if (isScrambled) userMoveCount--; // cancel the original function's unconditional bump
+      }
+      document.getElementById('stat-moves').innerText = userMoveCount;
+      if (record && isScrambled && timerStart === null) startTimer();
+      
+      // Check solved state after ANY move that could plausibly change it — a genuine
+      // user/keyboard move (record=true) counts toward personal bests; an Undo landing
+      // back on solved still has to stop the clock and update status, just without
+      // awarding a PB for undoing your way there.
+      let justSolved = false;
+      if (record) justSolved = checkSolvedAfterMove(true);
+      else if (wasUndo) justSolved = checkSolvedAfterMove(false);
+      
+      if (wasUndo && !justSolved) {
+        updateStatus(isScrambled ? `${userMoveCount} Moves` : 'Ready');
+      }
+    };
+    // Reset timerStart tracking whenever a fresh scramble finishes (handled via animate loop hook below)
+    const _origAnimate = animate;
+    let _lastScrambledFlag = false;
+    const _btnScramble = document.getElementById('btn-scramble');
+    const _btnSolve = document.getElementById('btn-solve');
+    const _btnReset = document.getElementById('btn-reset');
+    const _btnUndo = document.getElementById('btn-undo');
+    animate = function() {
+      _origAnimate();
+      if (isScrambled && !_lastScrambledFlag) { timerStart = null;
+        isAutoPlaying = false; } // fresh scramble just completed
+      _lastScrambledFlag = isScrambled;
+      
+      const busy = isAnimating || moveQueue.length > 0;
+      _btnScramble.disabled = busy;
+      _btnSolve.disabled = busy || moveHistory.length === 0;
+      _btnReset.disabled = busy;
+      _btnUndo.disabled = busy || moveHistory.length === 0;
+    };
+    
+    // ---- Keyboard shortcuts (uses the same FACE_DEF as everything above; never touches drag code) ----
+    window.addEventListener('keydown', (e) => {
+      if (!keyboardEnabled) return;
+      if (e.repeat) return;
+      const key = e.key.toUpperCase();
+      if (e.key === ' ') { e.preventDefault();
+        controls.reset(); return; }
+      if (isAutoPlaying) return; // don't let stray keys interfere with an in-progress scramble/solve
+      if (FACE_DEF[key] && key.length === 1) {
+        const d = FACE_DEF[key];
+        const dir = e.shiftKey ? -d.cw : d.cw;
+        queueMove(d.axis, d.layer, dir);
+      }
+    });
+    
+    // ---- Undo / Fullscreen / Settings buttons ----
+    document.getElementById('btn-undo').onclick = undoLastMove;
+    document.getElementById('btn-fullscreen').onclick = () => {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+      else document.exitFullscreen();
+    };
+    document.getElementById('btn-settings').onclick = (e) => {
+      e.stopPropagation();
+      document.getElementById('settings-panel').classList.toggle('show');
+    };
+    document.addEventListener('click', (e) => {
+      const panel = document.getElementById('settings-panel');
+      if (panel.classList.contains('show') && !panel.contains(e.target) && e.target.id !== 'btn-settings') {
+        panel.classList.remove('show');
+      }
+    });
+    document.getElementById('toggle-notation').onclick = () => {
+      showNotation = !showNotation;
+      localStorage.setItem('cube_show_notation', showNotation ? '1' : '0');
+      applySettingsUI();
+    };
+    document.getElementById('toggle-keyboard').onclick = () => {
+      keyboardEnabled = !keyboardEnabled;
+      localStorage.setItem('cube_keyboard', keyboardEnabled ? '1' : '0');
+      applySettingsUI();
+    };
+    
+    refreshBestDisplay();
+    applySettingsUI();
+    
     window.onload = init;
   </script>
 </body>

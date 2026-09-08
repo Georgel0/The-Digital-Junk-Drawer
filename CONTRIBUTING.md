@@ -37,4 +37,6 @@ You only need two things:
 
 NOTE: If your idea is already in the drawer, add it anyway, we will do some sort of leaderboard for that idea in the future. 
 
+Oh and don't worry, we will credit your file!
+
 I will review your PR as soon as possible.
