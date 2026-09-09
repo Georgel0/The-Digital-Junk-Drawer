@@ -6,13 +6,12 @@ This project started as a personal collection of apps built out of boredom, but 
 
 > "One person's digital trash is another person's digital treasure."
 
-<<<<<<< HEAD
+
 ## Live Demo
 Check out the collection here: [the-digital-junk-drawer.vercel.app]
 =======
 ## 🚀 Live Demo
 Check out the collection here: [[the-digital-junk-drawer.vercel.app](https://the-digital-junk-drawer.vercel.app/)]
->>>>>>> b74de41 (docs: update README and CONTRIBUTING files for clarity and encouragement; add demo link)
 
 ---
 
