@@ -1,12 +1,14 @@
-import redis from '../lib/redis.js';
+import sql from '../lib/db.js';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
       res.setHeader('Cache-Control', 'no-store, max-age=0');
-      
-      const votes = await redis.hgetall('project_votes');
-      return res.status(200).json(votes || {});
+
+      const rows = await sql`SELECT project_id, votes FROM project_votes`;
+      const votes = {};
+      for (const row of rows) votes[row.project_id] = row.votes;
+      return res.status(200).json(votes);
     } catch (error) {
       return res.status(500).json({ error: 'Failed to fetch votes' });
     }
@@ -18,8 +20,13 @@ export default async function handler(req, res) {
       if (!id || (action !== 1 && action !== -1)) {
         return res.status(400).json({ error: 'Invalid request' });
       }
-      const newTotal = await redis.hincrby('project_votes', id, action);
-      return res.status(200).json({ id, votes: newTotal });
+
+      const rows = await sql`
+        INSERT INTO project_votes (project_id, votes) VALUES (${id}, ${action})
+        ON CONFLICT (project_id) DO UPDATE SET votes = project_votes.votes + ${action}
+        RETURNING votes
+      `;
+      return res.status(200).json({ id, votes: rows[0].votes });
     } catch (error) {
       return res.status(500).json({ error: 'Failed to update vote' });
     }
